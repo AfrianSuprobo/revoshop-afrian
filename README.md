@@ -1,7 +1,7 @@
-# RevoShop Database - Checkpoint 1
+# RevoShop Database
 
 ## Description
-This project contains the database design for RevoShop online store (Checkpoint 1).
+This project contains the database design for RevoShop online store.
 
 ### Tables Included:
 - `users` - Store account records (no role column yet)
@@ -18,7 +18,7 @@ This project contains the database design for RevoShop online store (Checkpoint 
 ## Database Setup (Local)
 
 ### Step 1: Install PostgreSQL
-1. Download and install PostgreSQL from the official website.
+1. Download [(click here)](https://www.postgresql.org/download/) and install PostgreSQL (minimum ver. 18) from the official website.
 2. During setup, set a password for the `postgres` superuser (remember this password).
 3. Verify the installation in your terminal:
    ```bash
@@ -26,11 +26,12 @@ This project contains the database design for RevoShop online store (Checkpoint 
    ```
 
 ### Step 2: Create Database in pgAdmin 4
-1. Open **pgAdmin 4**.
-2. Connect to your PostgreSQL server using your password.
-3. In the left panel (Browser tree), right-click on **Databases** > **Create** > **Database...**.
-4. Enter `revoshop_db` as the Database name.
-5. Click **Save** and verify that `revoshop_db` appears in the server tree.
+1. Download [(click here)](https://www.pgadmin.org/download/) **pgAdmin4**. 
+2. Open **pgAdmin 4**.
+3. Connect to your PostgreSQL server using your password.
+4. In the left panel (Browser tree), right-click on **Databases** > **Create** > **Database...**.
+5. Enter `revoshop_db` as the Database name.
+6. Click **Save** and verify that `revoshop_db` appears in the server tree.
 
 *(Or run `CREATE DATABASE revoshop_db;` in SQL Query Tool).*
 
