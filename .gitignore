@@ -1,0 +1,17 @@
+# PostgreSQL
+*.backup
+*.dump
+*.sql.bak
+
+# Environment Variables
+.env
+
+# VS Code
+.vscode/
+
+# IntelliJ
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
