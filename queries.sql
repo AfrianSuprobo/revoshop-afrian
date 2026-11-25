@@ -1,5 +1,6 @@
-/*RevoShop SQL Queries for Checkpoint 1 - Backend Development Assignment*/
-/*This file contains SQL queries to retrieve data from the RevoShop database. The queries are designed to demonstrate various SQL operations, including filtering, sorting, and joining tables.*/
+/*This file contains SQL queries to retrieve data from the RevoShop database.*/
+/* The queries are designed to demonstrate various SQL operations, */
+/* including filtering, sorting, and joining tables.*/
 
 -- 1. Top expensive products in Electronics category
 -- Combines WHERE, ORDER BY, and LIMIT

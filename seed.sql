@@ -1,5 +1,6 @@
-/*RevoShop SQL Seed Data for Checkpoint 1 - Backend Development Assignment*/
-/*This file contains SQL statements to populate the RevoShop database with initial data. The seed data includes users, categories, products, orders, and order items. This data is used for testing and development purposes.*/
+/*This file contains SQL statements to populate the RevoShop database with initial data.*/
+/*The seed data includes users, categories, products, orders, and order items.*/
+/* This data is used for testing and development purposes.*/
 
 INSERT INTO users
 (full_name, email, password_hash)

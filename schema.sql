@@ -1,4 +1,6 @@
-/*Rebuilds the schema; this deletes existing table data. So if any constraints unique add they can always updated.(No role column yet in Checkpoint 1) */
+/*Rebuilds the schema; this deletes existing table data.*/
+/*So if any constraints unique add they can always updated.*/
+/*(No role column yet in Checkpoint 1) */
 DROP TABLE IF EXISTS order_items; 
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS products;
