@@ -23,7 +23,7 @@ CREATE TABLE categories (
 	created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-/*Create Table products base on categories taht shows products name, proce and stock.*/
+/*Create Table products base on categories that shows products name, price and stock.*/
 CREATE TABLE products (
 	product_id SERIAL PRIMARY KEY,
 	category_id INTEGER NOT NULL,
