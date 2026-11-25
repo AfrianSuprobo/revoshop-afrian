@@ -1,14 +1,19 @@
 # PostgreSQL
+# (Ignore PostgreSQL database files and directories)
+*.psql_history
 *.backup
 *.dump
 *.sql.bak
 
-# Environment Variables
-.env
+# Environment Variables.
+# (Files often used for configuration settings such as database credentials, API keys, and other sensitive information)
+.env 
 
 # VS Code
-.vscode/
+#(folder for VS Code settings and extensions)
+.vscode/ 
 
 # OS Files
-.DS_Store
-Thumbs.db
+# (Files created by the operating system - Windows, macOS - that are not relevant to the project)
+.DS_Store 
+Thumbs.db 
