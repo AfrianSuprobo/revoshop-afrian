@@ -23,7 +23,7 @@ ORDER BY total_amount DESC
 LIMIT 5;
 
 
--- 3. Search books ordered by name
+-- 3. Search products ordered by name
 SELECT *
 FROM products
 WHERE category_id = 2
