@@ -37,6 +37,8 @@ CREATE TABLE products (
 	CONSTRAINT fk_products_category
 		FOREIGN KEY (category_id)
 		REFERENCES categories(category_id)
+		ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
 
 /*Create Table orders for storing order information*/
@@ -50,6 +52,8 @@ CREATE TABLE orders (
 	CONSTRAINT fk_orders_user
 		FOREIGN KEY (user_id)
 		REFERENCES users(user_id)
+		ON UPDATE CASCADE
+        ON DELETE RESTRICT
 	
 );
 /*Create Table order_items for storing items in each order*/
@@ -57,16 +61,20 @@ CREATE TABLE order_items (
 	order_item_id SERIAL PRIMARY KEY,
 	order_id INTEGER NOT NULL,
 	product_id INTEGER NOT NULL,
-	quantity INTEGER NOT NULL,
-	unit_price DECIMAL(10,2) NOT NULL,
+	quantity INTEGER NOT NULL CHECK (quantity > 0),
+	unit_price DECIMAL(10,2) NOT NULL CHECK (unit_price >= 0),
 
 /*Constraint for foreign key relationship between orders and order_items, and products and order_items*/
 	CONSTRAINT fk_order_items_order
 		FOREIGN KEY (order_id)
-		REFERENCES orders(order_id),
+		REFERENCES orders(order_id)
+		ON UPDATE CASCADE
+        ON DELETE RESTRICT,
 
 /*Constraint for foreign key relationship between products and order_items*/
 	CONSTRAINT fk_order_items_product
 		FOREIGN KEY (product_id)
 		REFERENCES products(product_id)
+		ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
