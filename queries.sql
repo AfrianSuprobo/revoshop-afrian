@@ -172,15 +172,17 @@ ORDER BY total_spending DESC;
 
 -- 11. SUBQUERY - Calculates the average price of products
 -- Purpose: Display products whose price is above the average price of all products.
--- The subquery calculates the average price.
--- The main query compares each product price against that average.
+-- The Subquery: SELECT AVG(price) FROM products calculates the average price first.
+-- The Main query: Dsplays products with prices higher than the calculated average.
+-- First, run the SELECT AVG(price) FROM products query to get the average price, example: 50.00
+-- Then use 50.00 in the main query. by inputing it in the WHERE clause, like this: WHERE p.price > 50.00
 
 SELECT
-    product_id,
-    product_name,
-    price
-FROM products
-WHERE price > 
+    p.product_id,
+    p.product_name,
+    p.price
+FROM products p
+WHERE p.price > 
 (
     SELECT AVG(price)
     FROM products
@@ -189,6 +191,8 @@ ORDER BY price DESC;
 
 -- 12. SUBQUERY + JOIN
 -- Purpose: Display customers whose order amount is higher than the average order amount.
+-- First, run the SELECT AVG(total_amount) FROM orders query to get the average order amount, example: 100.00
+-- Then use 100.00 in the main query. by inputing it in the WHERE clause, like this: WHERE o.total_amount > 100.00
 
 SELECT
     u.full_name,
@@ -207,12 +211,15 @@ ORDER BY o.total_amount DESC;
 
 -- 13. SUBQUERY - Most expensive product
 -- Purpose: Display the most expensive product.
+-- First, run the SELECT MAX(price) FROM products query to get the maximum price, example: 200.00
+-- Then use 200.00 in the main query. by inputing it in the WHERE clause, like this: WHERE p.price = 200.00
+
 
 SELECT
-    product_name,
-    price
-FROM products
-WHERE price =
+    p.product_name,
+    p.price
+FROM products p
+WHERE p.price =
 (
     SELECT MAX(price)
     FROM products
@@ -237,7 +244,7 @@ HAVING SUM(o.total_amount) =
     FROM
     (
         SELECT
-            SUM(total_amount) AS customer_total
+            SUM(o.total_amount) AS customer_total
         FROM orders
         GROUP BY user_id
     ) totals
