@@ -168,3 +168,77 @@ GROUP BY
     u.full_name,
     u.email
 ORDER BY total_spending DESC;
+
+
+-- 11. SUBQUERY - Calculates the average price of products
+-- Purpose: Display products whose price is above the average price of all products.
+-- The subquery calculates the average price.
+-- The main query compares each product price against that average.
+
+SELECT
+    product_id,
+    product_name,
+    price
+FROM products
+WHERE price > 
+(
+    SELECT AVG(price)
+    FROM products
+)
+ORDER BY price DESC;
+
+-- 12. SUBQUERY + JOIN
+-- Purpose: Display customers whose order amount is higher than the average order amount.
+
+SELECT
+    u.full_name,
+    o.order_id,
+    o.total_amount
+FROM users u
+INNER JOIN orders o
+    ON u.user_id = o.user_id
+WHERE o.total_amount >
+(
+    SELECT AVG(total_amount)
+    FROM orders
+)
+ORDER BY o.total_amount DESC;
+
+
+-- 13. SUBQUERY - Most expensive product
+-- Purpose: Display the most expensive product.
+
+SELECT
+    product_name,
+    price
+FROM products
+WHERE price =
+(
+    SELECT MAX(price)
+    FROM products
+);
+
+
+-- 14. SUBQUERY + AGGREGATE
+-- Purpose: Display the customer(s) with the highest total spending.
+
+SELECT
+    u.full_name,
+    SUM(o.total_amount) AS total_spending
+FROM users u
+INNER JOIN orders o
+    ON u.user_id = o.user_id
+GROUP BY
+    u.user_id,
+    u.full_name
+HAVING SUM(o.total_amount) =
+(
+    SELECT MAX(customer_total)
+    FROM
+    (
+        SELECT
+            SUM(total_amount) AS customer_total
+        FROM orders
+        GROUP BY user_id
+    ) totals
+);
