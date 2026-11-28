@@ -58,5 +58,14 @@ The entity relationship diagram can be found in `docs/erd.png`:
 
 ![ERD Diagram](docs/erd.png)
 
+## Screenshots
+- **PostgreSQL Installation Verification** (`docs/ss_postgresql_version.png`):
+
+  ![PostgreSQL Version](docs/ss_postgresql_version.png)
+
+- **Database Setup in pgAdmin 4** (`docs/ss_revoshop_db_pgadmin4.png`):
+
+  ![revoshop_db on pgAdmin 4](docs/ss_revoshop_db_pgadmin4.png)
+
 ### Author
 **Afrian Suprobo**

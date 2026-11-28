@@ -244,8 +244,24 @@ HAVING SUM(o.total_amount) =
     FROM
     (
         SELECT
-            SUM(o.total_amount) AS customer_total
-        FROM orders
-        GROUP BY user_id
+            SUM(o2.total_amount) AS customer_total
+        FROM orders o2
+        GROUP BY o2.user_id
     ) totals
 );
+
+
+-- 15. Recent orders sorted by order_date (WHERE + ORDER BY + LIMIT)
+-- Purpose: Display the 3 most recent orders placed from November 2026 onward.
+
+SELECT
+    o.order_id,
+    u.full_name,
+    o.order_date,
+    o.total_amount
+FROM orders o
+INNER JOIN users u
+    ON o.user_id = u.user_id
+WHERE o.order_date >= '2026-11-01 00:00:00+07'
+ORDER BY o.order_date DESC
+LIMIT 3;

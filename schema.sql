@@ -29,8 +29,8 @@ CREATE TABLE products (
 	category_id INTEGER NOT NULL,
 	product_name VARCHAR(150) NOT NULL,
 	description TEXT,
-	price DECIMAL(10,2) NOT NULL,
-	stock_quantity INTEGER NOT NULL,
+	price DECIMAL(10,2) NOT NULL CHECK (price >= 0),
+	stock_quantity INTEGER NOT NULL CHECK (stock_quantity >= 0),
 	created_at TIMESTAMPTZ DEFAULT NOW(),
 	
 	/*Constraint for foreign key relationship between categories and products*/
@@ -46,7 +46,7 @@ CREATE TABLE orders (
 	order_id SERIAL PRIMARY KEY,
 	user_id INTEGER NOT NULL,
 	order_date TIMESTAMPTZ DEFAULT NOW(),
-	total_amount DECIMAL(10,2) NOT NULL,
+	total_amount DECIMAL(10,2) NOT NULL CHECK (total_amount >= 0),
 	
 	/*Constraint for foreign key relationship between users and orders*/
 	CONSTRAINT fk_orders_user
@@ -71,10 +71,14 @@ CREATE TABLE order_items (
 		ON UPDATE CASCADE
         ON DELETE RESTRICT,
 
-/*Constraint for foreign key relationship between products and order_items*/
+	/*Constraint for foreign key relationship between products and order_items*/
 	CONSTRAINT fk_order_items_product
 		FOREIGN KEY (product_id)
 		REFERENCES products(product_id)
 		ON UPDATE CASCADE
-        ON DELETE RESTRICT
+        ON DELETE RESTRICT,
+
+	/*Prevent duplicate product entries within the same order*/
+	CONSTRAINT uq_order_items_order_product
+		UNIQUE (order_id, product_id)
 );

@@ -39,29 +39,29 @@ VALUES
 
 
 INSERT INTO orders
-(user_id, total_amount)
+(user_id, order_date, total_amount)
 VALUES
-(1, 1524.98),
-(2, 149.99),
-(3, 1339.98),
-(4, 89.99),
-(1, 79.97);
+(1, '2026-11-01 09:15:00+07', 1524.98),
+(2, '2026-11-03 14:30:00+07', 149.99),
+(3, '2026-11-05 18:45:00+07', 1339.98),
+(4, '2026-11-10 11:20:00+07', 89.99),
+(1, '2026-11-15 20:05:00+07', 79.97);
 
 
 
 INSERT INTO order_items
 (order_id, product_id, quantity, unit_price)
 VALUES
-(1, 1, 1, 1499.99),
-(1, 3, 1, 24.99),
+(1, 1, 1, 1499.99), -- iPhone 18 Pro Max Burgundy 2TB
+(1, 4, 1, 24.99),   -- Stand Up Comedy Indonesia
 
-(2, 5, 1, 120.00),
-(2, 7, 1, 29.99),
+(2, 6, 1, 120.00),  -- Nike Running Shoes
+(2, 8, 1, 29.99),   -- Basketball
 
-(3, 2, 1, 1299.99),
-(3, 4, 1, 39.99),
+(3, 2, 1, 1299.99), -- Samsung Galaxy Z Fold8
+(3, 5, 1, 39.99),   -- Pecahkan Vol.1
 
-(4, 6, 1, 89.99),
+(4, 7, 1, 89.99),   -- Air Fryer
 
-(5, 3, 2, 24.99),
-(5, 7, 1, 29.99);
+(5, 4, 2, 24.99),   -- Stand Up Comedy Indonesia (x2)
+(5, 8, 1, 29.99);   -- Basketball
