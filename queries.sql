@@ -61,6 +61,7 @@ SELECT
     u.email,
     o.order_id,
     o.order_date,
+    o.status,
     o.total_amount
 FROM users u
 JOIN orders o
@@ -94,6 +95,7 @@ SELECT
     u.full_name,
     u.email,
     o.order_id,
+    o.status,
     c.category_name,
     p.product_name,
     p.price,
@@ -137,7 +139,7 @@ ORDER BY p.price DESC
 LIMIT 5;
 
 
--- 9. Aggregate - Total sales amount per customer
+-- 9. Aggregate - Total sales amount per customer (excluding cancelled orders)
 -- GROUP BY example.
 
 SELECT
@@ -146,14 +148,15 @@ SELECT
 FROM users u
 INNER JOIN orders o
     ON u.user_id = o.user_id
+WHERE o.status <> 'cancelled'
 GROUP BY u.user_id, u.full_name
 ORDER BY total_spending DESC;
 
 
 -- 10. LEFT JOIN + COALESCE + GROUP BY
--- Purpose: Display all users and their total spending.
--- LEFT JOIN: Show all users, including users with no orders.
--- COALESCE: Replace NULL with 0 for users who have never placed an order.
+-- Purpose: Display all users and their total non-cancelled spending.
+-- LEFT JOIN: Show all users, including users with no orders or only cancelled orders.
+-- COALESCE: Replace NULL with 0 for users without active spending.
 
 SELECT
     u.user_id,
@@ -163,6 +166,7 @@ SELECT
 FROM users u
 LEFT JOIN orders o
     ON u.user_id = o.user_id
+    AND o.status <> 'cancelled'
 GROUP BY
     u.user_id,
     u.full_name,
@@ -227,7 +231,7 @@ WHERE p.price =
 
 
 -- 14. SUBQUERY + AGGREGATE
--- Purpose: Display the customer(s) with the highest total spending.
+-- Purpose: Display the customer(s) with the highest total non-cancelled spending.
 
 SELECT
     u.full_name,
@@ -235,6 +239,7 @@ SELECT
 FROM users u
 INNER JOIN orders o
     ON u.user_id = o.user_id
+WHERE o.status <> 'cancelled'
 GROUP BY
     u.user_id,
     u.full_name
@@ -246,22 +251,37 @@ HAVING SUM(o.total_amount) =
         SELECT
             SUM(o2.total_amount) AS customer_total
         FROM orders o2
+        WHERE o2.status <> 'cancelled'
         GROUP BY o2.user_id
     ) totals
 );
 
 
 -- 15. Recent orders sorted by order_date (WHERE + ORDER BY + LIMIT)
--- Purpose: Display the 3 most recent orders placed from November 2026 onward.
+-- Purpose: Display the 3 most recent non-cancelled orders placed from November 2026 onward.
 
 SELECT
     o.order_id,
     u.full_name,
     o.order_date,
+    o.status,
     o.total_amount
 FROM orders o
 INNER JOIN users u
     ON o.user_id = u.user_id
 WHERE o.order_date >= '2026-11-01 00:00:00+07'
+  AND o.status <> 'cancelled'
 ORDER BY o.order_date DESC
 LIMIT 3;
+
+
+-- 16. Order summary by status
+-- Purpose: Count orders and sum total_amount grouped by order status.
+
+SELECT
+    status,
+    COUNT(*) AS total_orders,
+    SUM(total_amount) AS total_revenue
+FROM orders
+GROUP BY status
+ORDER BY total_revenue DESC;

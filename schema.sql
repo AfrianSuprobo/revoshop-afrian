@@ -46,6 +46,7 @@ CREATE TABLE orders (
 	order_id SERIAL PRIMARY KEY,
 	user_id INTEGER NOT NULL,
 	order_date TIMESTAMPTZ DEFAULT NOW(),
+	status VARCHAR(30) NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'paid', 'processing', 'shipped', 'delivered', 'cancelled')),
 	total_amount DECIMAL(10,2) NOT NULL CHECK (total_amount >= 0),
 	
 	/*Constraint for foreign key relationship between users and orders*/
